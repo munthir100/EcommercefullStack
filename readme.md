@@ -22,7 +22,13 @@ This project is a full-stack application using Laravel for the backend and Next.
     cd EcommercefullStack
     ```
 
-2. **Build and run the containers:**
+2. **Create the MySQL folder:**
+
+    ```sh
+    mkdir mysql
+    ```
+
+3. **Build and run the containers:**
 
     To build and start the containers, you can use the following commands:
 
@@ -37,7 +43,7 @@ This project is a full-stack application using Laravel for the backend and Next.
     make setup
     ```
 
-3. **Access the application:**
+4. **Access the application:**
 
     - Laravel backend: `http://localhost:8000`
     - Next.js frontend: `http://localhost:3000`
@@ -55,7 +61,7 @@ The `docker-compose.yml` file defines the services for the application:
 
 - **laravel**: The backend service.
 - **nextjs**: The frontend service.
-- **mySQL**: The database service.
+- **mysql**: The database service.
 
 ### Makefile Commands
 
@@ -69,7 +75,7 @@ The `docker-compose.yml` file defines the services for the application:
 - `make backendLogs`: Streams logs for the backend service.
 - `make buildFrontend`: Builds the frontend Docker container.
 - `make buildBackend`: Builds the backend Docker container.
-- `make data`: Runs database migrations and seeds.
+- `make data`: Runs database migrations and seeds after copy .env.example to .env file .
 
 ## Volumes
 
