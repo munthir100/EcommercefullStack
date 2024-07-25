@@ -21,3 +21,5 @@ buildFrontend:
 	docker-compose build frontend
 buildBackend:
 	docker-compose build backend
+data:
+	docker-compose exec backend sh -c "cp .env.example .env && php artisan migrate && php artisan db:seed"
