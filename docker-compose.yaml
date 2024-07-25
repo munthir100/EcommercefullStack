@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./laravel
+    container_name: ecommerce-laravel
+    volumes:
+      - ./laravel:/var/www/html
+    ports:
+      - "8000:80"
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "ecommerceDatabasePassword"
+      MYSQL_DATABASE: ecommerce
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  frontend:
+    build: ./nextjs
+    container_name: ecommerce-nextjs
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./nextjs:/app

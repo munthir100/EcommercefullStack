@@ -1,0 +1,28 @@
+# Node.js specific files
+node_modules/
+npm-debug.log
+
+# IDE and editor files
+.vscode/
+.idea/
+.atom/
+.gitignore
+
+# Log files
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Build artifacts
+dist/
+build/
+
+# Coverage files
+coverage/
