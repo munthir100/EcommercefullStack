@@ -18,8 +18,8 @@ This project is a full-stack application using Laravel for the backend and Next.
 1. **Clone the repository:**
 
     ```sh
-    git clone https://github.com/yourusername/your-repo.git
-    cd your-repo
+    git clone https://github.com/munthir100/EcommercefullStack.git
+    cd EcommercefullStack
     ```
 
 2. **Build and run the containers:**
