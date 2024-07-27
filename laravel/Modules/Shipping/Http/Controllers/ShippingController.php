@@ -14,7 +14,7 @@ class ShippingController extends Controller
     {
         $countries = Country::useFilters()->dynamicPaginate();
 
-        return $this->responseSuccess(data: [CountryResource::collection($countries)]);
+        return $this->responseSuccess(data: ['countries' => CountryResource::collection($countries)]);
     }
 
     function cities()

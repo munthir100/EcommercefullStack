@@ -6,7 +6,13 @@ import { validationSchema } from "./validation-schema";
 import Form from "./form";
 import { formAction } from "./formAction";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+
+
 export default function LoginPage() {
+    const router = useRouter()
+
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string[]>([]); // State for error messages
 
@@ -22,7 +28,7 @@ export default function LoginPage() {
         setIsLoading(true);
         try {
             const response = await formAction(data);
-            console.log(response); // Log successful response
+            router.push('/')
         } catch (error: any) {
             console.error(error); // Log the full error object
 

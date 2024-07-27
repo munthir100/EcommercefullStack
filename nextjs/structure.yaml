@@ -1,0 +1,19 @@
+src:
+  app:
+    admin:
+      page.tsx
+      login:
+        page.tsx
+        form.tsx
+        formAction.tsx
+        validation-schema.tsx
+        error.tsx
+      register:
+              page.tsx
+              form.tsx
+              formAction.tsx
+              validation-schema.tsx
+              error.tsx
+  data:
+    api.tsx    
+    types.tsx    

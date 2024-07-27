@@ -1,3 +1,5 @@
+import { setHttpOnlyCookie } from "@/utils/cookies";
+import { cookies } from "next/headers";
 
 export async function formAction(data: any) {
   try {
@@ -11,7 +13,7 @@ export async function formAction(data: any) {
     });
     const responseData = await response.json();
     if (responseData.success) {
-      return response
+      await setHttpOnlyCookie('token', responseData.token);
     } else {
       throw new Error(responseData.message);
     }
