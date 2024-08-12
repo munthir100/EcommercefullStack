@@ -7,7 +7,7 @@ export default function Register() {
         <>
             <div>Register Page</div>
             <Form />
-            <Link href="/admin/login">Login</Link>
+            <Link href="/login">Login</Link>
         </>
     )
 }

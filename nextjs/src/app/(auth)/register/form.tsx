@@ -5,8 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema } from './validation-schema';
 import { formAction } from './formAction';
 import { useState, useEffect } from 'react';
-import getCountries from '@/data/api'; // Import your API function
-import { Country } from '@/data/types'; // Import your API function
+import { Country } from '@/data/types';
+import { getCountries } from '@/data/api';
 
 type RegisterFormInputs = z.infer<typeof registerSchema>;
 

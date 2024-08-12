@@ -42,14 +42,14 @@ export default function Home() {
 
       <div className={styles.grid}>
         <Link
-          href="/admin/login"
+          href="/admin"
           className={styles.card}
           rel="noopener noreferrer"
         >
           <h2>
             Admin <span>-&gt;</span>
           </h2>
-          <p>Admin Login</p>
+          <p>Admin Page</p>
         </Link>
 
         <a

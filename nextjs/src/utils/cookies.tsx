@@ -1,9 +1,17 @@
 'use server'
 import { cookies } from "next/headers";
 
-export async function getCookie(name: string) {
+
+export async function getCookie(name: string): Promise<string | null> {
     const cookieStore = cookies();
-    return cookieStore.get(name)?.value;
+    const cookie = cookieStore.get(name);
+
+    console.log('cookie');
+    if (cookie) {
+        return cookie.value;
+    }
+
+    return null;
 }
 
 export async function setHttpOnlyCookie(name: string, value: string) {

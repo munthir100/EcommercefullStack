@@ -31,7 +31,7 @@ class ProductController extends Controller
         $this->authorize('View-Product');
         $products = request()->store->products()->useFilters()->dynamicPaginate();
 
-        return $this->responseSuccess(data:[ProductResource::collection($products)]);
+        return $this->responseSuccess(data: ['products' => ProductResource::collection($products)]);
     }
 
     public function store(ProductRequest $request)
@@ -44,7 +44,7 @@ class ProductController extends Controller
         return DB::transaction(function () use ($data, $optionsData) {
             $product = request()->store->products()->create($data);
             $product->uploadMedia();
-            
+
             if ($optionsData != []) {
                 $this->productService->createProductOptions($product, $optionsData);
             }

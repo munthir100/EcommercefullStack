@@ -54,6 +54,19 @@ class ProductRequest extends FormRequest
         ]);
     }
 
+    private function toBoolean($booleable)
+    {
+        return filter_var($booleable, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'is_virtual_product' => $this->toBoolean($this->is_virtual_product),
+            'has_unspecified_quantity' => $this->toBoolean($this->has_unspecified_quantity),
+            'is_active' => $this->toBoolean($this->is_active),
+        ]);
+    }
     /**
      * Determine if the user is authorized to make this request.
      *

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Modules\Admin\Entities\Bank;
 use Modules\Admin\Entities\Language;
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Http\Controllers\AdminController;
 use Modules\Admin\Http\Controllers\TaxController;
 use Modules\Admin\Http\Controllers\AuthController;
 use Modules\Admin\Http\Controllers\BrandController;
@@ -35,7 +36,7 @@ use Modules\Admin\Http\Controllers\SubscriptionsPlansController;
 |
 */
 
-Route::post('/test', function(){
+Route::post('/test', function () {
     return response()->json('test is working');
 });
 

@@ -28,7 +28,7 @@ export default function LoginPage() {
         setIsLoading(true);
         try {
             const response = await formAction(data);
-            router.push('/')
+            router.push('/admin')
         } catch (error: any) {
             console.error(error); // Log the full error object
 
@@ -57,7 +57,7 @@ export default function LoginPage() {
                     {error && <p className="text-red-500 text-xs italic">{error}</p>}
                 </form>
             </div>
-            <Link href="/admin/register">Register</Link>
+            <Link href="/register">Register</Link>
         </>
     );
 }

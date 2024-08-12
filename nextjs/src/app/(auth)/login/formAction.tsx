@@ -13,7 +13,7 @@ export async function formAction(data: any) {
     });
     const responseData = await response.json();
     if (responseData.success) {
-      await setHttpOnlyCookie('token', responseData.token);
+      await setHttpOnlyCookie('token', responseData.data.token);
     } else {
       throw new Error(responseData.message);
     }

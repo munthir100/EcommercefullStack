@@ -1,7 +1,12 @@
 src:
   app:
     admin:
-      page.tsx
+      # page.tsx
+      # layout.tsx contain from sidebar and topbar
+      components:
+        topBar.tsx
+        sideBar.tsx
+    (auth):
       login:
         page.tsx
         form.tsx
@@ -14,6 +19,15 @@ src:
               formAction.tsx
               validation-schema.tsx
               error.tsx
+    products:
+      page.tsx
+      create:
+        page.tsx
+        form.tsx
+        formAction.tsx
+        validation-schema.tsx
   data:
-    api.tsx    
+    api:
+      staticData.tsx
+      requests.tsx
     types.tsx    

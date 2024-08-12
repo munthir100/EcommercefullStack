@@ -5,3 +5,10 @@ export type Country = {
     phone_digits_number: number;
     currency_code: string;
 };
+
+export type Product = {
+    id: number;  
+    name: string;  
+    price: number; 
+};
+

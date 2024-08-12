@@ -13,6 +13,8 @@ nodeUser:
 	docker exec -it -u node ecommerce-nextjs /bin/sh
 backendTerminal:
 	docker exec -it ecommerce-laravel /bin/bash
+laravelUser:
+	docker exec -it -u laravel ecommerce-laravel /bin/bash
 frontendLogs:
 	docker-compose logs -f frontend
 backendLogs:
