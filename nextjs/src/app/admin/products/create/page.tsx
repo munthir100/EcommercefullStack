@@ -8,9 +8,15 @@ export default function Create() {
         <>
             <h1>Create Product</h1>
             <Suspense fallback={<Loading />}>
-
                 <Form />
             </Suspense>
         </>
     )
 }
+
+
+
+
+
+
+// export default Create;

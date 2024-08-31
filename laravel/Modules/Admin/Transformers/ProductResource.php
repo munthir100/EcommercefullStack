@@ -25,7 +25,9 @@ class ProductResource extends JsonResource
             'discount' => $this->discount,
             'free_shipping' => $this->free_shipping,
             'is_active' => $this->is_active,
-            'product_images' => $this->resource->retrieveMedia(),
+            'images' => [
+                $this->resource->retrieveMedia(),
+            ]
         ];
     }
 }

@@ -36,10 +36,6 @@ use Modules\Admin\Http\Controllers\SubscriptionsPlansController;
 |
 */
 
-Route::post('/test', function () {
-    return response()->json('test is working');
-});
-
 Route::post('/admin/register', [AuthController::class, 'register']);
 Route::post('/admin/login', [AuthController::class, 'login']);
 Route::post('/admin/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

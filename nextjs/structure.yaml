@@ -21,11 +21,16 @@ src:
               error.tsx
     products:
       page.tsx
+      [id]
+        page.tsx
       create:
         page.tsx
         form.tsx
         formAction.tsx
         validation-schema.tsx
+      edit:
+        page.tsx
+        form.tsx
   data:
     api:
       staticData.tsx

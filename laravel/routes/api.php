@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Entities\SubscriptionPlan;
 use Modules\Admin\Http\Controllers\SubscriptionController;
+use Modules\Admin\Http\Requests\UpdateProductRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('subscriptionPlans',[SubscriptionController::class,'index']);
-Route::prefix('superAdmin')->group(function(){
-    Route::get('users',[UserController::class,'index']); 
-    Route::get('stores',[StoreController::class,'index']); 
+Route::get('subscriptionPlans', [SubscriptionController::class, 'index']);
+Route::prefix('superAdmin')->group(function () {
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('stores', [StoreController::class, 'index']);
+});
+
+Route::post('test', function (Request $request) {
+    $request->validate([
+        'image' => 'required|image',
+    ]);
+    return response()->json([
+        'message' => 'validation for image passed'
+    ]);
 });

@@ -13,7 +13,6 @@ export async function formAction(data: any) {
         const responseData = await response.json();
 
         if (response.ok && responseData.success) {
-            console.log(responseData);
             return responseData;
         } else {
             throw new Error(responseData.message || 'Failed to register');

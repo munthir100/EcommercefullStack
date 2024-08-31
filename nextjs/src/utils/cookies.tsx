@@ -6,7 +6,6 @@ export async function getCookie(name: string): Promise<string | null> {
     const cookieStore = cookies();
     const cookie = cookieStore.get(name);
 
-    console.log('cookie');
     if (cookie) {
         return cookie.value;
     }

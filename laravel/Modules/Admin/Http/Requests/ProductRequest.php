@@ -25,9 +25,9 @@ class ProductRequest extends FormRequest
             'description'              => 'sometimes',
             'price'                    => 'required|numeric',
             'cost'                     => 'sometimes',
-            'is_discounted'            => 'sometimes',
+            'is_discounted'            => 'sometimes|boolean',
             'price_after_discount'     => 'required_with:is_discounted|numeric',
-            'free_shipping'            => 'sometimes',
+            'free_shipping'            => 'sometimes|boolean',
             'main_image'               => 'required|image',
             'sub_images.*'             => 'sometimes|image',
             'is_active'                => 'required|boolean',
@@ -63,6 +63,8 @@ class ProductRequest extends FormRequest
     {
         $this->merge([
             'is_virtual_product' => $this->toBoolean($this->is_virtual_product),
+            'free_shipping' => $this->toBoolean($this->free_shipping),
+            'is_discounted' => $this->toBoolean($this->is_discounted),
             'has_unspecified_quantity' => $this->toBoolean($this->has_unspecified_quantity),
             'is_active' => $this->toBoolean($this->is_active),
         ]);
