@@ -30,8 +30,9 @@ class Product extends Model  implements HasMedia
         'store_id',
         'name',
         'sku',
+        'unspecified_quantity',
         'quantity',
-        'wheight',
+        'weight',
         'short_description',
         'description',
         'price',
@@ -39,6 +40,8 @@ class Product extends Model  implements HasMedia
         'is_discounted',
         'free_shipping',
         'is_active',
+        'is_digital',
+        'weight',
     ];
     protected string $default_filters = ProductFilters::class;
 

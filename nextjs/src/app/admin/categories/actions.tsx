@@ -1,8 +1,8 @@
 import { getCookie } from '@/utils/cookies';
 
-export async function GetAllProducts(page?: number) {
+export async function GetAllCategories(page?: number) {
     try {
-        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products${page ? `?page=${page}` : ''}`;
+        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories${page ? `?page=${page}` : ''}`;
 
         const response = await fetch(apiEndpoint, {
             method: 'GET',
@@ -19,10 +19,10 @@ export async function GetAllProducts(page?: number) {
 };
 
 
-export async function CreateProduct(data: any, image: File | null) {
+export async function CreateCategory(data: any, image: File | null) {
     try {
         const formData = new FormData();
-        if (image) formData.append('main_image', image);
+        if (image) formData.append('image', image);
 
         Object.entries(data).forEach(([key, value]) => {
             if (value !== null && value !== undefined) {
@@ -30,7 +30,7 @@ export async function CreateProduct(data: any, image: File | null) {
             }
         });
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories`, {
             method: 'POST',
             headers: {
                 'accept': 'application/json',
@@ -42,7 +42,7 @@ export async function CreateProduct(data: any, image: File | null) {
         if (!response.ok) {
             const errorResponse = await response.json();
             console.log('Error response:', errorResponse);
-            throw new Error(errorResponse.message || 'Cannot create product');
+            throw new Error(errorResponse.message || 'Cannot create category');
         }
 
         return await response.json();
@@ -51,9 +51,9 @@ export async function CreateProduct(data: any, image: File | null) {
     }
 };
 
-export async function UpdateProduct(id: number, data: any) {
+export async function UpdateCategory(id: number, data: any) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export async function UpdateProduct(id: number, data: any) {
         if (!response.ok) {
             const errorResponse = await response.json();
             console.log('Error response:', errorResponse);
-            throw new Error(errorResponse.message || 'Cannot update product');
+            throw new Error(errorResponse.message || 'Cannot update category');
         }
 
         return await response.json();
@@ -78,12 +78,12 @@ export async function UpdateProduct(id: number, data: any) {
     }
 };
 
-export async function UpdateMainImage(productId: number, image: File) {
+export async function UpdateImage(categoryId: number, image: File) {
     try {
         const formData = new FormData();
-        if (image) formData.append('main_image', image);
+        if (image) formData.append('image', image);
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products/${productId}/update/image`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories/${categoryId}/update/image`, {
             method: 'POST', // or 'PUT' depending on your API
             headers: {
                 'accept':'applicaiton/json',
@@ -103,9 +103,9 @@ export async function UpdateMainImage(productId: number, image: File) {
     }
 }
 
-export async function GetProduct(id: number) {
+export async function GetCategory(id: number) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories/${id}`, {
             method: 'GET',
             headers: {
                 'accept': 'application/json',
@@ -115,7 +115,7 @@ export async function GetProduct(id: number) {
         if (!response.ok) {
             const errorResponse = await response.json();
             console.log('Error response:', errorResponse);
-            throw new Error(errorResponse.message || 'Cannot delete product');
+            throw new Error(errorResponse.message || 'Cannot delete category');
         }
         const responseData = await response.json();
         return responseData;
@@ -124,9 +124,9 @@ export async function GetProduct(id: number) {
     }
 };
 
-export async function DeleteProduct(id: number) {
+export async function DeleteCategory(id: number) {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products/${id}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/categories/${id}`, {
             method: 'DELETE',
             headers: {
                 'accept': 'application/json',
@@ -136,7 +136,7 @@ export async function DeleteProduct(id: number) {
         if (!response.ok) {
             const errorResponse = await response.json();
             console.log('Error response:', errorResponse);
-            throw new Error(errorResponse.message || 'Cannot delete product');
+            throw new Error(errorResponse.message || 'Cannot delete category');
         }
         const responseData = await response.json();
         return responseData;

@@ -15,29 +15,41 @@ export type Product = {
     quantity: number | null;
     weight: number;
     short_description: string;
-    has_unspecified_quantity: boolean;
-    is_virtual_product: boolean;
+    unspecified_quantity: number;
+    is_virtual_product: number;
     price_after_discount: number;
     brand_id: number;
     description: string;
     price: number;
     cost: number;
-    is_discounted: boolean;
-    free_shipping: boolean;
-    is_active: boolean;
+    is_discounted: number;
+    free_shipping: number;
+    is_active: number;
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
     default_currency: string;
-    featuredProdcut: boolean;
+    featuredProdcut: number;
     images: {
         main_image: {
             name: string;
             url: string;
-        };
+        }[];
         sub_images: {
             name: string;
             url: string;
         }[];
     };
 };
+
+export type Category = {
+    id: number;
+    store_id: number;
+    name: string;
+    parent_id: number;
+    is_active: number;
+    image: {
+        name: string;
+        url: string;
+    }[];
+}

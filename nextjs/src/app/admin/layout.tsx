@@ -1,24 +1,35 @@
-import React, { Suspense } from 'react';
-import Link from 'next/link';
+// components/DashboardLayout.js  
+'use client';
+
+import { useState } from 'react';
 import Sidebar from './components/sidebar';
 import Topbar from './components/topbar';
-import Loading from '@/components/ui/loading';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+const DashboardLayout = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <>
-      <Suspense fallback={<Loading />}>
-        <Topbar />
-      </Suspense>
-      <Suspense fallback={<Loading />}>
-        <div className="flex">
-          <Sidebar />
-          <div className="w-full p-4">
-            {children}
-          </div>
-        </div>
-      </Suspense>
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
-    </>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col">
+        {/* Top Navigation Bar */}
+        <Topbar />
+
+        <main>{children}</main>
+      </div>
+    </div>
   );
-}
+};
+
+export default DashboardLayout;

@@ -1,11 +1,17 @@
-"use client"
+"use client";
+
 import { useState, useEffect } from 'react';
 import { Product } from '@/data/types';
 import Link from 'next/link';
 import { DeleteProduct, GetAllProducts } from './actions';
-import Pagination from '@/components/pagination'; // Assuming this is the correct path
+import Pagination from '@/components/pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  Table, Input, Button, TableHeader, TableRow, TableColumn, TableBody, TableCell
+} from '@nextui-org/react';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-// Extract the API fetching logic into a separate hook  
 function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [meta, setMeta] = useState({});
@@ -14,25 +20,26 @@ function useProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await GetAllProducts(currentPage); 
+        const response = await GetAllProducts(currentPage);
         setProducts(response.data.products);
-        setMeta(response.meta); 
+        setMeta(response.meta);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
-  }, [currentPage]); 
+  }, [currentPage]);
 
   return { products, setProducts, meta, currentPage, setCurrentPage };
 }
 
 export default function List() {
   const { products, setProducts, meta, currentPage, setCurrentPage } = useProducts();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleRemove = async (id: number) => {
-    const shouldRemove = confirm("are you sure you want to delete?")
+    const shouldRemove = confirm("Are you sure you want to delete?")
 
     if (shouldRemove) {
       try {
@@ -44,45 +51,69 @@ export default function List() {
     }
   }
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: any) => {
     setCurrentPage(page);
   };
 
+  const filteredProducts = products?.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) || [];
+
   return (
     <>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Actions</th>
-            <th><Link href="/admin/products/create">Add Product</Link></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>
-                <Link href={`/admin/products/${product.id}`}>
-                  {product.name}
-                </Link>
-              </td>
-              <td>${product.price.toFixed(2)}</td>
-              <td>
-                <Link href={`/admin/products/edit/${product.id}`}>
-                  Edit
-                </Link>
-
-                <button className="btn btn-danger" onClick={() => handleRemove(product.id)}>Delete</button>
-              </td>
-            </tr>
+      <div className="flex justify-between items-center mb-4">
+        <Input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <Link href="/admin/products/create">
+          <Button color="primary">
+            <FontAwesomeIcon icon={faPlus} className="mr-2" />
+            Add Product
+          </Button>
+        </Link>
+      </div>
+      {/* ID
+Name
+Price
+Status
+Actions */}
+      <Table aria-label="Products Table">
+        <TableHeader>
+          <TableColumn>ID</TableColumn>
+          <TableColumn>Name</TableColumn>
+          <TableColumn>Price</TableColumn>
+          <TableColumn>Status</TableColumn>
+          <TableColumn>Actions</TableColumn>
+        </TableHeader>
+        <TableBody>
+          {filteredProducts.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell>{product.id}</TableCell>
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell>{product.is_active ? 'Active' : 'Inactive'}</TableCell>
+              <TableCell>
+                <div className="flex gap-2">
+                  <Link href={`/admin/products/${product.id}`}>
+                    <Button color="primary" isIconOnly>
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </Button>
+                  </Link>
+                  <Button color="danger" isIconOnly onClick={() => handleRemove(product.id)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
+                </div>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
 
-      <Pagination meta={meta} onPageChange={handlePageChange} /> 
+
+      <Pagination meta={meta} onPageChange={handlePageChange} />
     </>
   );
 }

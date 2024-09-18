@@ -1,0 +1,8 @@
+body {
+    background-color: #f3f3f9;
+}
+
+.sidebar {
+    height: -webkit-fill-available;
+    z-index: 1111111;
+}

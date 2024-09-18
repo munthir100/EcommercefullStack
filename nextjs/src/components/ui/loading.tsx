@@ -1,5 +1,9 @@
+import { Spinner } from "reactstrap";
+
 export default function Loading() {
   return (
-    <div>loading...</div>
+    <Spinner>
+      Loading...
+    </Spinner>
   )
 }

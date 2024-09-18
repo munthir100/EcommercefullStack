@@ -1,8 +1,8 @@
 'use client'
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { validationSchema } from '../validation';
+import { validationSchema } from './validation';
 import Loading from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
 import z from 'zod';
@@ -19,7 +19,6 @@ export default function CreateProductForm() {
     handleSubmit,
     formState: { errors },
     watch,
-    setValue
   } = useForm<CreateProductInputs>({
     resolver: zodResolver(validationSchema),
     defaultValues: {
@@ -28,24 +27,12 @@ export default function CreateProductForm() {
     }
   })
 
-  const isDigitalProduct = watch('is_digital');
+  const isVirtualProduct = watch('is_virtual_product');
   const hasUnspecifiedQuantity = watch('unspecified_quantity');
-  const previousWeight = useRef<number | null>(null); // Store the previous weight
-  // ... other code
 
-  useEffect(() => {
-    if (isDigitalProduct) {
-      previousWeight.current = watch('weight'); // Store the current weight
-      setValue('weight', 0); 
-    } else if (previousWeight.current !== null) { 
-      setValue('weight', previousWeight.current); // Restore the previous weight
-      previousWeight.current = null; // Reset previousWeight
-    }
-  }, [isDigitalProduct, setValue, watch]);
+  type ProductFormInputs = z.infer<typeof validationSchema>;
 
-
-  
-  const onSubmit = async (data: CreateProductInputs) => {
+  const onSubmit = async (data: ProductFormInputs) => {
     try {
       await CreateProduct(data, image);
       router.push('/admin/products');
@@ -84,9 +71,9 @@ export default function CreateProductForm() {
           </div>
 
           <div>
-            <label htmlFor="is_digital">Is Digital Product</label>
-            <input id="is_digital" type="checkbox" {...register('is_digital')} />
-            {errors.is_digital && <span>{errors.is_digital.message}</span>}
+            <label htmlFor="is_virtual_product">Is Virtual Product</label>
+            <input id="is_virtual_product" type="checkbox" {...register('is_virtual_product')} />
+            {errors.is_virtual_product && <span>{errors.is_virtual_product.message}</span>}
           </div>
 
           <div>
@@ -95,7 +82,8 @@ export default function CreateProductForm() {
               id="weight"
               type="number"
               {...register('weight')}
-              disabled={isDigitalProduct ? true : false}
+              disabled={isVirtualProduct ? true : false}
+              value={isVirtualProduct ? 0 : ''}
             />
             {errors.weight && <span>{errors.weight.message}</span>}
           </div>

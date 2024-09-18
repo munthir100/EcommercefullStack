@@ -3,12 +3,13 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use App\Services\StoreService;
 use Illuminate\Support\Carbon;
 use App\Services\ProductService;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Store\Entities\Product;
+use App\Http\Controllers\Controller;
 use function PHPUnit\Framework\isEmpty;
 use Modules\Admin\Http\Requests\ProductRequest;
 use Modules\Admin\Transformers\ProductResource;
@@ -81,10 +82,7 @@ class ProductController extends Controller
                 $this->productService->createProductOptions($product, $optionsData);
             }
         }
-        if ($request->has('main_image')) {
-            $product->clearMediaCollection('main_image');
-            $product->addMediaFromRequest('main_image')->toMediaCollection('main_image');
-        }
+
         if ($request->has('sub_images')) {
             $product->clearMediaCollection('sub_images');
             foreach ($request->file('sub_images') as $file) {
@@ -102,5 +100,17 @@ class ProductController extends Controller
         $this->productService->deleteProduct($product);
 
         return $this->responseSuccess('product deleted');
+    }
+
+    public function updateMainImage(Request $request, Product $product)
+    {
+        $request->validate([
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048',
+        ]);
+
+        $product->clearMediaCollection('main_image');
+        $product->addMediaFromRequest('main_image')->toMediaCollection('main_image');
+
+        return $this->responseSuccess('main image updated', data: ['main_image' => $product->getFirstMediaUrl('main_image')]);
     }
 }

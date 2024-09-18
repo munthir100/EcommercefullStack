@@ -45,6 +45,7 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->middleware('aut
 Route::middleware(['custom_auth_sanctum', 'can_manage'])
     ->prefix('admin')->group(function () {
         Route::apiResource('products', ProductController::class);
+        Route::post('products/{product}/update/image', [ProductController::class, 'updateMainImage']);
         Route::apiResource('categories', CategoryController::class);
         Route::apiResource('brands', BrandController::class);
         Route::apiResource('customers', CustomerManagementController::class);

@@ -15,8 +15,8 @@ class ProductResource extends JsonResource
             'store_id' => $this->store_id,
             'name' => $this->name,
             'sku' => $this->sku,
-            'quantity' => $this->unspecified_quantity ? 'unspecified' : $this->quantity,
-            'wheight' => $this->wheight,
+            'quantity' => $this->quantity,
+            'weight' => $this->weight,
             'short_description' => $this->short_description,
             'description' => $this->description,
             'price' => $this->price,
@@ -25,6 +25,7 @@ class ProductResource extends JsonResource
             'discount' => $this->discount,
             'free_shipping' => $this->free_shipping,
             'is_active' => $this->is_active,
+            'is_digital' => $this->is_digital,
             'images' => [
                 $this->resource->retrieveMedia(),
             ]

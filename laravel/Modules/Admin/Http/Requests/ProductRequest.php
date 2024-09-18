@@ -17,9 +17,9 @@ class ProductRequest extends FormRequest
         return [
             'name'                     => 'required',
             'sku'                      => 'required',
-            'is_virtual_product'       => 'sometimes|boolean',
-            'has_unspecified_quantity' => 'sometimes|boolean',
-            'quantity'                 => request()->input('has_unspecified_quantity') ? 'nullable' : 'required|integer',
+            'is_digital'       => 'sometimes|boolean',
+            'unspecified_quantity' => 'sometimes|boolean',
+            'quantity'                 => request()->input('unspecified_quantity') ? 'nullable' : 'required|integer',
             'weight'                   => 'sometimes',
             'short_description'        => 'sometimes|max:20',
             'description'              => 'sometimes',
@@ -54,21 +54,6 @@ class ProductRequest extends FormRequest
         ]);
     }
 
-    private function toBoolean($booleable)
-    {
-        return filter_var($booleable, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
-    }
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'is_virtual_product' => $this->toBoolean($this->is_virtual_product),
-            'free_shipping' => $this->toBoolean($this->free_shipping),
-            'is_discounted' => $this->toBoolean($this->is_discounted),
-            'has_unspecified_quantity' => $this->toBoolean($this->has_unspecified_quantity),
-            'is_active' => $this->toBoolean($this->is_active),
-        ]);
-    }
     /**
      * Determine if the user is authorized to make this request.
      *
