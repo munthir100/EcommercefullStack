@@ -1,8 +1,8 @@
 import { getCookie } from '@/utils/cookies';
 
-export async function GetAllProducts(page?: number) {
+export async function GetAllProducts(page = 1, search?: string) {
     try {
-        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products${page ? `?page=${page}` : ''}`;
+        const apiEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products?page=${page}${search ? `&search=${search}` : ''}`;
 
         const response = await fetch(apiEndpoint, {
             method: 'GET',
@@ -86,7 +86,7 @@ export async function UpdateMainImage(productId: number, image: File) {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${process.env.NEXT_PUBLIC_API_ADMIN_URL}/products/${productId}/update/image`, {
             method: 'POST', // or 'PUT' depending on your API
             headers: {
-                'accept':'applicaiton/json',
+                'accept': 'applicaiton/json',
                 'Authorization': `Bearer ${await getCookie('token')}`,
             },
             body: formData,

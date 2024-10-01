@@ -1,4 +1,3 @@
-
 'use client'
 import React from "react";
 
@@ -354,7 +353,7 @@ export default function App() {
                   </TableColumn>
                 )}
               </TableHeader>
-              <TableBody emptyContent={"No users found"} items={sortedItems}>
+              <TableBody emptyContent={"No items found"} items={sortedItems}>
                 {(item) => (
                   <TableRow key={item.id}>
                     {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
@@ -368,4 +367,3 @@ export default function App() {
     </>
   );
 }
-

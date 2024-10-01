@@ -43,6 +43,16 @@ return [
         ],
       ],
     ],
+    'components' => [
+      'dashboard' => [
+        'table' =>[
+          'statusChip.tsx',
+          'TableActions.tsx',
+          'TableTopContent',
+          'UserCell.tsx',
+        ]
+      ]
+    ],
     'data' => [
       'api.tsx',
       'types.tsx',

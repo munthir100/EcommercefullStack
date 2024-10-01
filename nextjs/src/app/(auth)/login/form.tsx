@@ -81,6 +81,7 @@ export default function Form() {
                 color="primary" // Change to primary color  
                 size="lg"
                 className="mt-4"
+                isLoading={isLoading}
             >
                 {isLoading ? 'Loading...' : 'Login'}
             </Button>
